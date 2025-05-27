@@ -1,39 +1,40 @@
-import {create} from "zustand"
-import AsyncStorage from "@react-native-async-storage/async-storage"
+import { create } from "zustand";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const useAuthStore = create((set) => ({
-    user: null,
-    token: null,
-    isLoading: false,
+  user: null,
+  token: null,
+  isLoading: false,
 
-    register: async(username: string, email: string, password: string) => {
-        set({isLoading: true})
+  register: async (username: string, email: string, password: string) => {
+    set({ isLoading: true });
 
-        try {
-            const response = await fetch("http://localhost:3000/api/auth/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type" : "application/json"
-                },
-                body: JSON.stringify({
-                    username, email, password
-                })
-            })
+    try {
+      const response = await fetch("https://readcircle-app-backend.onrender.com/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          email,
+          password,
+        }),
+      });
 
-            const data = await response.json()
+      const data = await response.json();
 
-            if(!response.ok) throw new Error(data.message || "Something went wrong")
+      if (!response.ok) throw new Error(data.message || "Something went wrong");
 
-                await AsyncStorage.setItem("user", JSON.stringify(data.user))
-                await AsyncStorage.setItem("token", JSON.stringify(data.token))
+      await AsyncStorage.setItem("user", JSON.stringify(data.user));
+      await AsyncStorage.setItem("token", JSON.stringify(data.token));
 
-                set({token: data.token, user: data.user, isLoading: false})
+      set({ token: data.token, user: data.user, isLoading: false });
 
-                return {success: true}
-        } catch (error: any) {
-            set({isLoading: false})
-            return {success: false, error: error.message}
-            
-        }
+      return { success: true };
+    } catch (error: any) {
+      set({ isLoading: false });
+      return { success: false, error: error.message };
     }
-}))
+  },
+}));

@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   TextInput,
   ActivityIndicator,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import styles from "@/assets/styles/signup.styles";
@@ -22,9 +23,14 @@ const SignUp = () => {
 
   const router = useRouter();
 
-  const { user, isLoading, register } = useAuthStore();
+  const { user, isLoading, register, token } = useAuthStore();
 
-  const handleSignUp = () => {};
+  const handleSignUp = async () => {
+    const result = await register(username, email, password)
+    console.log(result)
+
+    if (!result.success) Alert.alert("Error", result?.error)
+  };
 
   return (
     <KeyboardAvoidingView
