@@ -11,16 +11,20 @@ import React, { useState } from "react";
 import styles from "@/assets/styles/signup.styles";
 import { Ionicons } from "@expo/vector-icons";
 import COLORS from "@/constants/colors";
-import { Link } from "expo-router";
+import { useRouter } from "expo-router";
+import { useAuthStore } from "@/store/authStore";
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSignup = () => {};
+  const router = useRouter();
+
+  const { user, isLoading, register } = useAuthStore();
+
+  const handleSignUp = () => {};
 
   return (
     <KeyboardAvoidingView
@@ -118,21 +122,21 @@ const SignUp = () => {
             {/* signup button */}
             <TouchableOpacity
               style={styles.button}
-              onPress={handleSignup}
+              onPress={handleSignUp}
               disabled={isLoading}
             >
               {isLoading ? (
                 <ActivityIndicator color="#fff" />
               ) : (
-                <Text style={styles.buttonText}>Signup</Text>
+                <Text style={styles.buttonText}>Sign Up</Text>
               )}
             </TouchableOpacity>
 
             <View style={styles.footer}>
-              <Text style={styles.footerText}>Have an account?</Text>
-              <Link href="/" style={styles.link}>
-                Login
-              </Link>
+              <Text style={styles.footerText}>Alredy have an account?</Text>
+              <TouchableOpacity onPress={() => router.back()}>
+                <Text style={styles.link}>Login</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>

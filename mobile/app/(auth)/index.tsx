@@ -14,11 +14,14 @@ import { Ionicons } from "@expo/vector-icons";
 import COLORS from "@/constants/colors";
 import { Link } from "expo-router";
 
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+
 
   const handleLogin = () => {};
 
@@ -112,7 +115,7 @@ const Login = () => {
             <View style={styles.footer}>
               <Text style={styles.footerText}>Don't have an account?</Text>
               <Link href="/signup" style={styles.link}>
-                Signup
+                Sign Up
               </Link>
             </View>
           </View>
