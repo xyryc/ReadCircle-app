@@ -64,7 +64,7 @@ export const useAuthStore = create((set) => ({
       if (!response.ok) throw new Error(data.message || "Something went wrong");
 
       await AsyncStorage.setItem("user", JSON.stringify(data.user));
-      await AsyncStorage.setItem("user", data.token);
+      await AsyncStorage.setItem("token", data.token);
 
       set({ token: data.token, user: data.user, isLoading: false });
 
@@ -77,8 +77,8 @@ export const useAuthStore = create((set) => ({
 
   checkAuth: async () => {
     try {
-      const token = await AsyncStorage.getItem("token");
       const userJson = await AsyncStorage.getItem("user");
+      const token = await AsyncStorage.getItem("token");
       const user = userJson ? JSON.parse(userJson) : null;
 
       set({ token, user });

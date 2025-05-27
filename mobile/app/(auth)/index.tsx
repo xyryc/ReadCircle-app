@@ -5,8 +5,9 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   KeyboardAvoidingView,
-  Platform, Image,
-  Alert
+  Platform,
+  Image,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import styles from "@/assets/styles/login.styles";
@@ -20,12 +21,12 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const { user, isLoading, login, token } = useAuthStore()
+  const { user, isLoading, login, token } = useAuthStore();
 
   const handleLogin = async () => {
-    const result = await login(email, password)
+    const result = await login(email, password);
 
-    if (!result.success) Alert.alert("Error", result.error)
+    if (!result.success) Alert.alert("Error", result.error);
   };
 
   return (

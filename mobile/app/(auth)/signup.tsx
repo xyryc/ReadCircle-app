@@ -26,10 +26,10 @@ const SignUp = () => {
   const { user, isLoading, register, token } = useAuthStore();
 
   const handleSignUp = async () => {
-    const result = await register(username, email, password)
-    console.log(result)
+    const result = await register(username, email, password);
+    console.log(result);
 
-    if (!result.success) Alert.alert("Error", result?.error)
+    if (!result.success) Alert.alert("Error", result?.error);
   };
 
   return (
