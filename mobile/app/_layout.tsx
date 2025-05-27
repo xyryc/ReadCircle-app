@@ -29,8 +29,6 @@ export default function RootLayout() {
     else if (isSignedIn && inAuthScreen) router.replace("/(tabs)");
   }, [user, token, segments]);
 
-  console.log(user, token);
-
   return (
     <SafeAreaProvider>
       <SafeScreen>

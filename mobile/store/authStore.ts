@@ -1,6 +1,30 @@
 import { create } from "zustand";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+type User = {
+  id: string;
+  username: string;
+  email: string;
+  profileImage: string;
+};
+
+type AuthStore = {
+  user: User | null;
+  token: string | null;
+  isLoading: boolean;
+  register: (
+    username: string,
+    email: string,
+    password: string
+  ) => Promise<{ success: boolean; error?: string }>;
+  login: (
+    email: string,
+    password: string
+  ) => Promise<{ success: boolean; error?: string }>;
+  checkAuth: () => Promise<void>;
+  logout: () => Promise<void>;
+};
+
 export const useAuthStore = create((set) => ({
   user: null,
   token: null,
