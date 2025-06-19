@@ -35,7 +35,7 @@ export const useAuthStore = create((set) => ({
 
     try {
       const response = await fetch(
-        "https://readcircle-app-backend.onrender.com/api/auth/register",
+        "https://readcircle-app-backend-dqtz.onrender.com/api/auth/register",
         {
           method: "POST",
           headers: {
@@ -70,7 +70,7 @@ export const useAuthStore = create((set) => ({
 
     try {
       const response = await fetch(
-        "https://readcircle-app-backend.onrender.com/api/auth/login",
+        "https://readcircle-app-backend-dqtz.onrender.com/api/auth/login",
         {
           method: "POST",
           headers: {
