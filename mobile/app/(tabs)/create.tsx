@@ -19,6 +19,7 @@ import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuthStore } from "@/store/authStore";
+import { API_URL } from "@/constants/api";
 
 const Create = () => {
   const [title, setTitle] = useState("");
@@ -92,14 +93,52 @@ const Create = () => {
     try {
       setLoading(true);
 
-      // get file extension from URI or default to jpeg
-      const uriParts = image?.split(".");
-      const fileType = uriParts[uriParts?.length - 1];
-      const imageType = fileType
-        ? `image/${fileType.toLowerCase()}`
-        : "image/jpeg";
-      const imageDataUrl = `data:${imageType};base64,${imageBase64}`;
-    } catch (error) {}
+      if (image) {
+        // get file extension from URI or default to jpeg
+        const uriParts = image.split(".");
+        const fileType = uriParts[uriParts?.length - 1];
+        const imageType = fileType
+          ? `image/${fileType.toLowerCase()}`
+          : "image/jpeg";
+        const imageDataUrl = `data:${imageType};base64,${imageBase64}`;
+
+        const response = await fetch(`${API_URL}/books`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title,
+            caption,
+            rating: rating.toString(),
+            image: imageDataUrl,
+          }),
+        });
+
+        const data = await response.json();
+        if (!response.ok)
+          throw new Error(data.message || "Something went wrong.");
+        else
+          Alert.alert("Success", "Your book recommendation has been posted!");
+
+        // clear form
+        setTitle("");
+        setCaption("");
+        setRating(3);
+        setImage(null);
+        setImageBase64(null);
+
+        // redirect to home
+        router.push("/");
+      } else {
+        Alert.alert("Error", "Something went wrong.");
+      }
+    } catch (error) {
+      console.log("Error creating post", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const renderRatingPicker = () => {

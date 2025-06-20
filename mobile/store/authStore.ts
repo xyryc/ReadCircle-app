@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { API_URL } from "@/constants/api";
 
 type User = {
   id: string;
@@ -25,7 +26,7 @@ type AuthStore = {
   logout: () => Promise<void>;
 };
 
-export const useAuthStore = create((set) => ({
+export const useAuthStore = create<AuthStore>((set) => ({
   user: null,
   token: null,
   isLoading: false,
@@ -34,20 +35,17 @@ export const useAuthStore = create((set) => ({
     set({ isLoading: true });
 
     try {
-      const response = await fetch(
-        "https://readcircle-app-backend-dqtz.onrender.com/api/auth/register",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username,
-            email,
-            password,
-          }),
-        }
-      );
+      const response = await fetch(`${API_URL}/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          email,
+          password,
+        }),
+      });
 
       const data = await response.json();
 
@@ -62,6 +60,8 @@ export const useAuthStore = create((set) => ({
     } catch (error: any) {
       set({ isLoading: false });
       return { success: false, error: error.message };
+    } finally {
+      set({ isLoading: false });
     }
   },
 
@@ -69,19 +69,16 @@ export const useAuthStore = create((set) => ({
     set({ isLoading: true });
 
     try {
-      const response = await fetch(
-        "https://readcircle-app-backend-dqtz.onrender.com/api/auth/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-            password,
-          }),
-        }
-      );
+      const response = await fetch(`${API_URL}/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
 
       const data = await response.json();
 
@@ -95,7 +92,9 @@ export const useAuthStore = create((set) => ({
       return { success: true };
     } catch (error: any) {
       set({ isLoading: false });
-      return { sucess: false, error: error.message };
+      return { success: false, error: error.message };
+    } finally {
+      set({ isLoading: false });
     }
   },
 
