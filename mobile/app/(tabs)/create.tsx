@@ -8,14 +8,17 @@ import {
   TouchableOpacity,
   Image,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
 import styles from "../../assets/styles/create.styles";
 import { useRouter } from "expo-router";
-import { Ionicons, Octicons } from "@expo/vector-icons";
+import { Ionicons, Octicons, SimpleLineIcons } from "@expo/vector-icons";
 import COLORS from "@/constants/colors";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAuthStore } from "@/store/authStore";
 
 const Create = () => {
   const [title, setTitle] = useState("");
@@ -26,6 +29,7 @@ const Create = () => {
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
+  const { token } = useAuthStore();
 
   const pickImage = async () => {
     try {
@@ -70,10 +74,33 @@ const Create = () => {
           setImageBase64(base64);
         }
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log("Error picking image", error);
+      Alert.alert(
+        "Error",
+        "There was a problem selecting your image. Please try again."
+      );
+    }
   };
 
-  const handleSubmit = async () => {};
+  const handleSubmit = async () => {
+    if (!title || !caption || !imageBase64 || !rating) {
+      Alert.alert("Error", "Please fill in all fields");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      // get file extension from URI or default to jpeg
+      const uriParts = image?.split(".");
+      const fileType = uriParts[uriParts?.length - 1];
+      const imageType = fileType
+        ? `image/${fileType.toLowerCase()}`
+        : "image/jpeg";
+      const imageDataUrl = `data:${imageType};base64,${imageBase64}`;
+    } catch (error) {}
+  };
 
   const renderRatingPicker = () => {
     const stars = [];
@@ -161,6 +188,40 @@ const Create = () => {
                 )}
               </TouchableOpacity>
             </View>
+
+            {/* caption */}
+            <View style={styles.formGroup}>
+              <Text style={styles.label}>Caption</Text>
+              <TextInput
+                style={styles.textArea}
+                placeholder="Write your review or thoughts about this book..."
+                placeholderTextColor={COLORS.placeholderText}
+                value={caption}
+                onChangeText={setCaption}
+                multiline
+              />
+            </View>
+
+            {/* submit */}
+            <TouchableOpacity
+              style={styles.button}
+              onPress={handleSubmit}
+              disabled={loading}
+            >
+              {loading ? (
+                <ActivityIndicator color={COLORS.white} />
+              ) : (
+                <>
+                  <SimpleLineIcons
+                    name="cloud-upload"
+                    size={20}
+                    color={COLORS.white}
+                    style={styles.buttonIcon}
+                  />
+                  <Text style={styles.buttonText}>Share</Text>
+                </>
+              )}
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
