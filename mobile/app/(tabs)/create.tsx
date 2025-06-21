@@ -96,7 +96,7 @@ const Create = () => {
       if (image) {
         // get file extension from URI or default to jpeg
         const uriParts = image.split(".");
-        const fileType = uriParts[uriParts?.length - 1];
+        const fileType = uriParts[uriParts.length - 1];
         const imageType = fileType
           ? `image/${fileType.toLowerCase()}`
           : "image/jpeg";
@@ -116,9 +116,9 @@ const Create = () => {
             image: imageDataUrl,
           }),
         });
-        console.log(response);
 
         const data = await response.json();
+
         if (!response.ok)
           throw new Error(data.message || "Something went wrong.");
         else
