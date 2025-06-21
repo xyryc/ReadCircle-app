@@ -100,6 +100,7 @@ const Create = () => {
         const imageType = fileType
           ? `image/${fileType.toLowerCase()}`
           : "image/jpeg";
+
         const imageDataUrl = `data:${imageType};base64,${imageBase64}`;
 
         const response = await fetch(`${API_URL}/books`, {
@@ -115,6 +116,7 @@ const Create = () => {
             image: imageDataUrl,
           }),
         });
+        console.log(response);
 
         const data = await response.json();
         if (!response.ok)
@@ -131,8 +133,6 @@ const Create = () => {
 
         // redirect to home
         router.push("/");
-      } else {
-        Alert.alert("Error", "Something went wrong.");
       }
     } catch (error) {
       console.log("Error creating post", error);
