@@ -12,6 +12,7 @@ import styles from "@/assets/styles/home.styles";
 import { Image } from "expo-image";
 import { Octicons } from "@expo/vector-icons";
 import COLORS from "@/constants/colors";
+import { format } from "date-fns";
 
 interface Book {
   _id: string;
@@ -23,6 +24,7 @@ interface Book {
     username: string;
     profileImage: string;
   };
+  createdAt: string;
 }
 
 const Index = () => {
@@ -77,7 +79,7 @@ const Index = () => {
     }
   };
 
-  const renderRatingStars = (rating) => {
+  const renderRatingStars = (rating: number) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
       stars.push(
@@ -120,6 +122,9 @@ const Index = () => {
           {renderRatingStars(item.rating)}
         </View>
         <Text style={styles.caption}>{item.caption}</Text>
+        <Text style={styles.date}>
+          Shared on {format(new Date(item.createdAt), "d MMM yyyy")}
+        </Text>
       </View>
     </View>
   );
