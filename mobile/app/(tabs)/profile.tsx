@@ -56,7 +56,7 @@ const Profile = () => {
       </View>
 
       <FlatList data={books}
-        renderItem={({ item }) => <BookRecommendations item={item} />}
+        renderItem={({ item }) => <BookRecommendations item={item} books={books} setBooks={setBooks} />}
         keyExtractor={({ item }) => item?._id}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.booksList}
