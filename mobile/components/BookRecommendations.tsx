@@ -6,7 +6,7 @@ import { Octicons } from '@expo/vector-icons';
 import { formatDistance, subDays } from 'date-fns';
 import { Image } from 'expo-image'
 import { useState } from 'react';
-import { View, Text, TouchableOpacity, Alert } from 'react-native'
+import { View, Text, TouchableOpacity, Alert, ActivityIndicator } from 'react-native'
 
 interface Book {
     _id: string;
@@ -24,6 +24,7 @@ interface BookRecommendationsProps {
 }
 export default function BookRecommendations({ item, books, setBooks }: BookRecommendationsProps) {
     const { token } = useAuthStore()
+    const [deleteBookId, setDeleteBookId] = useState<string | null>(null)
 
 
     const renderRatingStars = (rating: number) => {
@@ -45,6 +46,7 @@ export default function BookRecommendations({ item, books, setBooks }: BookRecom
 
     const handleDeleteBook = async (bookId: string) => {
         try {
+            setDeleteBookId(bookId)
             const response = await fetch(`${API_URL}/books/${bookId}`, {
                 method: "DELETE",
                 headers: { Authorization: `Bearer ${token}` }
@@ -56,6 +58,9 @@ export default function BookRecommendations({ item, books, setBooks }: BookRecom
             Alert.alert("Success", "Recommendation deleted successfully")
         } catch (error: any) {
             Alert.alert("Error", error.message || "Failed to delete recommendation")
+        }
+        finally {
+            setDeleteBookId(null)
         }
     }
 
@@ -78,7 +83,11 @@ export default function BookRecommendations({ item, books, setBooks }: BookRecom
             </View>
 
             <TouchableOpacity style={styles.deleteButton} onPress={() => { confirmDelete(item?._id) }}>
-                <Octicons name="trash" size={20} color={COLORS.primary} />
+                {deleteBookId === item._id ?
+                    <ActivityIndicator size="small" color={COLORS.primary} />
+                    :
+                    <Octicons name="trash" size={20} color={COLORS.primary} />
+                }
             </TouchableOpacity>
         </View>
     )
