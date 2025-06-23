@@ -8,16 +8,20 @@ import { Image } from 'expo-image'
 import { useState } from 'react';
 import { View, Text, TouchableOpacity, Alert } from 'react-native'
 
-interface BookRecommendationsProps {
-    item: {
-        title: string;
-        image: string;
-        rating: number;
-        caption: string;
-        createdAt: string;
-    };
+interface Book {
+    _id: string;
+    title: string;
+    image: string;
+    rating: number;
+    caption: string;
+    createdAt: string;
 }
 
+interface BookRecommendationsProps {
+    item: Book;
+    books: Book[];
+    setBooks: (books: Book[]) => void;
+}
 export default function BookRecommendations({ item, books, setBooks }: BookRecommendationsProps) {
     const { token } = useAuthStore()
 
@@ -39,7 +43,7 @@ export default function BookRecommendations({ item, books, setBooks }: BookRecom
         return stars;
     };
 
-    const handleDeleteBook = async (bookId) => {
+    const handleDeleteBook = async (bookId: string) => {
         try {
             const response = await fetch(`${API_URL}/books/${bookId}`, {
                 method: "DELETE",
@@ -48,14 +52,14 @@ export default function BookRecommendations({ item, books, setBooks }: BookRecom
             const data = await response.json()
 
             if (!response.ok) throw new Error(data.message || "Failed to delete book")
-            setBooks(books.filter((book) => book.id !== bookId))
+            setBooks(books.filter((book) => book._id !== bookId))
             Alert.alert("Success", "Recommendation deleted successfully")
-        } catch (error) {
+        } catch (error: any) {
             Alert.alert("Error", error.message || "Failed to delete recommendation")
         }
     }
 
-    const confirmDelete = (bookId) => {
+    const confirmDelete = (bookId: string) => {
         Alert.alert("Delete Recommendation", "Are you sure you want to delete this recommendation?", [
             { text: "Cancel", style: "cancel" },
             { text: "Delete", style: "destructive", onPress: () => handleDeleteBook(bookId) }
