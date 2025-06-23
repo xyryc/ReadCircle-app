@@ -29,6 +29,8 @@ interface Book {
   createdAt: string;
 }
 
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+
 const Index = () => {
   const { token } = useAuthStore();
   const [books, setBooks] = useState<Book[]>([]);
@@ -63,8 +65,12 @@ const Index = () => {
     } catch (error) {
       console.log("Error fetching books", error);
     } finally {
-      setLoading(false);
-      setRefreshing(false);
+      if (refresh) {
+        await sleep(800)
+        setRefreshing(false);
+      } else {
+        setLoading(false);
+      }
     }
   };
 
@@ -72,9 +78,7 @@ const Index = () => {
     fetchBooks();
   }, []);
 
-  const handleRefresh = () => {
-    fetchBooks(1, true);
-  };
+
 
   const handleLoadMore = async () => {
     if (hasMore && !loading && !refreshing) {
@@ -148,7 +152,12 @@ const Index = () => {
           onEndReached={handleLoadMore}
           onEndReachedThreshold={0.2}
           refreshControl={
-            <RefreshControl title="Fetching" titleColor="#e17055" tintColor="#e17055" refreshing={refreshing} onRefresh={handleRefresh} />
+            <RefreshControl title="Refetching..."
+              colors={[COLORS.primary]}
+              tintColor={COLORS.primary}
+              titleColor={COLORS.primary}
+              refreshing={refreshing}
+              onRefresh={() => fetchBooks(1, true)} />
           }
           ListHeaderComponent={
             <View style={styles.header}>
