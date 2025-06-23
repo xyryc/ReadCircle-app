@@ -13,6 +13,7 @@ import { Image } from "expo-image";
 import { Octicons } from "@expo/vector-icons";
 import COLORS from "@/constants/colors";
 import { format } from "date-fns";
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 
 interface Book {
   _id: string;
@@ -130,12 +131,12 @@ const Index = () => {
   );
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       {loading && books.length === 0 ? (
         <ActivityIndicator size="large" style={{ marginTop: 50 }} />
       ) : (
         <FlatList
-          data={books}
+          data={[]}
           renderItem={renderItem}
           keyExtractor={(item) => item._id}
           contentContainerStyle={styles.listContainer}
@@ -143,7 +144,20 @@ const Index = () => {
           onEndReached={handleLoadMore}
           onEndReachedThreshold={0.5}
           refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+            <RefreshControl title="Fetching" titleColor="#e17055" tintColor="#e17055" refreshing={refreshing} onRefresh={handleRefresh} />
+          }
+          ListHeaderComponent={
+            <View style={styles.header}>
+              <Text style={styles.headerTitle}>ReadCircle</Text>
+              <Text style={styles.headerSubtitle}>Discover great reads from community</Text>
+            </View>
+          }
+          ListEmptyComponent={
+            <View style={styles.emptyContainer}>
+              <FontAwesome6 name="book" size={60} color={COLORS.textSecondary} />
+              <Text style={styles.emptyText}>No recommendations yet</Text>
+              <Text style={styles.emptySubtext}>Be the first to share a book!</Text>
+            </View>
           }
         />
       )}
