@@ -14,6 +14,7 @@ import { Octicons } from "@expo/vector-icons";
 import COLORS from "@/constants/colors";
 import { format } from "date-fns";
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import Loader from "@/components/Loader";
 
 interface Book {
   _id: string;
@@ -49,6 +50,7 @@ const Index = () => {
 
       const data = await response.json();
 
+
       if (!response.ok) {
         throw new Error(data.message || "Failed to fetch books");
       }
@@ -74,9 +76,9 @@ const Index = () => {
     fetchBooks(1, true);
   };
 
-  const handleLoadMore = () => {
-    if (hasMore && !loading) {
-      fetchBooks(page + 1);
+  const handleLoadMore = async () => {
+    if (hasMore && !loading && !refreshing) {
+      await fetchBooks(page + 1);
     }
   };
 
@@ -130,19 +132,21 @@ const Index = () => {
     </View>
   );
 
+  if (loading) return <Loader size="large" />
+
   return (
     <View style={styles.container}>
       {loading && books.length === 0 ? (
         <ActivityIndicator size="large" style={{ marginTop: 50 }} />
       ) : (
         <FlatList
-          data={[]}
+          data={books}
           renderItem={renderItem}
           keyExtractor={(item) => item._id}
           contentContainerStyle={styles.listContainer}
           showsVerticalScrollIndicator={false}
           onEndReached={handleLoadMore}
-          onEndReachedThreshold={0.5}
+          onEndReachedThreshold={0.2}
           refreshControl={
             <RefreshControl title="Fetching" titleColor="#e17055" tintColor="#e17055" refreshing={refreshing} onRefresh={handleRefresh} />
           }
@@ -158,6 +162,11 @@ const Index = () => {
               <Text style={styles.emptyText}>No recommendations yet</Text>
               <Text style={styles.emptySubtext}>Be the first to share a book!</Text>
             </View>
+          }
+          ListFooterComponent={
+            hasMore && books.length > 0 ? (
+              <ActivityIndicator style={styles.footerLoader} size="small" color={COLORS.primary} />
+            ) : null
           }
         />
       )}
