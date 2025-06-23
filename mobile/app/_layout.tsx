@@ -13,7 +13,7 @@ export default function RootLayout() {
   const { checkAuth, user, token } = useAuthStore();
 
   // console.log("segments", segments);
-  console.log(user, token);
+  // console.log(user, token);
 
   useEffect(() => {
     checkAuth();
