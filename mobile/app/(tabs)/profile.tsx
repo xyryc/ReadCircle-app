@@ -17,6 +17,7 @@ import BookRecommendations from "@/components/BookRecommendations";
 import { Ionicons } from "@expo/vector-icons";
 import COLORS from "@/constants/colors";
 import { sleep } from "../utils/utils";
+import Loader from "@/components/Loader";
 
 const Profile = () => {
   const [books, setBooks] = useState([]);
@@ -60,6 +61,8 @@ const Profile = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  if (isLoading && !refreshing) return <Loader size={"large"} />;
 
   return (
     <View style={styles.container}>
