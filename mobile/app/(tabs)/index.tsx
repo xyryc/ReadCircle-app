@@ -15,7 +15,7 @@ import COLORS from "@/constants/colors";
 import { format } from "date-fns";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import Loader from "@/components/Loader";
-import { sleep } from "../utils/utils";
+import { sleep } from "../../utils/utils";
 
 interface Book {
   _id: string;

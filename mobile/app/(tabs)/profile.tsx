@@ -16,11 +16,12 @@ import styles from "@/assets/styles/profile.styles";
 import BookRecommendations from "@/components/BookRecommendations";
 import { Ionicons } from "@expo/vector-icons";
 import COLORS from "@/constants/colors";
-import { sleep } from "../utils/utils";
+import { sleep } from "../../utils/utils";
 import Loader from "@/components/Loader";
+import { Book } from "@/types/book";
 
 const Profile = () => {
-  const [books, setBooks] = useState([]);
+  const [books, setBooks] = useState<Book[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
 
@@ -80,7 +81,7 @@ const Profile = () => {
         renderItem={({ item }) => (
           <BookRecommendations item={item} books={books} setBooks={setBooks} />
         )}
-        keyExtractor={({ item }) => item?._id}
+        keyExtractor={(item) => item._id}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.booksList}
         refreshControl={
