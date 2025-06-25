@@ -1,31 +1,7 @@
 import { create } from "zustand";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_URL } from "@/constants/api";
-
-type User = {
-  id: string;
-  username: string;
-  email: string;
-  profileImage: string;
-  createdAt: string;
-};
-
-type AuthStore = {
-  user: User | null;
-  token: string | null;
-  isLoading: boolean;
-  register: (
-    username: string,
-    email: string,
-    password: string
-  ) => Promise<{ success: boolean; error?: string }>;
-  login: (
-    email: string,
-    password: string
-  ) => Promise<{ success: boolean; error?: string }>;
-  checkAuth: () => Promise<void>;
-  logout: () => Promise<void>;
-};
+import { AuthStore, User } from "@/types/user";
 
 export const useAuthStore = create<AuthStore>((set) => ({
   user: null,
