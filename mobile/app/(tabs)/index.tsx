@@ -13,8 +13,9 @@ import { Image } from "expo-image";
 import { Octicons } from "@expo/vector-icons";
 import COLORS from "@/constants/colors";
 import { format } from "date-fns";
-import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import Loader from "@/components/Loader";
+import { sleep } from "../utils/utils";
 
 interface Book {
   _id: string;
@@ -28,8 +29,6 @@ interface Book {
   };
   createdAt: string;
 }
-
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 const Index = () => {
   const { token } = useAuthStore();
@@ -52,7 +51,6 @@ const Index = () => {
 
       const data = await response.json();
 
-
       if (!response.ok) {
         throw new Error(data.message || "Failed to fetch books");
       }
@@ -66,7 +64,7 @@ const Index = () => {
       console.log("Error fetching books", error);
     } finally {
       if (refresh) {
-        await sleep(800)
+        await sleep(800);
         setRefreshing(false);
       } else {
         setLoading(false);
@@ -77,8 +75,6 @@ const Index = () => {
   useEffect(() => {
     fetchBooks();
   }, []);
-
-
 
   const handleLoadMore = async () => {
     if (hasMore && !loading && !refreshing) {
@@ -136,7 +132,7 @@ const Index = () => {
     </View>
   );
 
-  if (loading) return <Loader size="large" />
+  if (loading) return <Loader size="large" />;
 
   return (
     <View style={styles.container}>
@@ -152,29 +148,43 @@ const Index = () => {
           onEndReached={handleLoadMore}
           onEndReachedThreshold={0.2}
           refreshControl={
-            <RefreshControl title="Refetching..."
+            <RefreshControl
+              title="Refetching..."
               colors={[COLORS.primary]}
               tintColor={COLORS.primary}
               titleColor={COLORS.primary}
               refreshing={refreshing}
-              onRefresh={() => fetchBooks(1, true)} />
+              onRefresh={() => fetchBooks(1, true)}
+            />
           }
           ListHeaderComponent={
             <View style={styles.header}>
               <Text style={styles.headerTitle}>ReadCircle</Text>
-              <Text style={styles.headerSubtitle}>Discover great reads from community</Text>
+              <Text style={styles.headerSubtitle}>
+                Discover great reads from community
+              </Text>
             </View>
           }
           ListEmptyComponent={
             <View style={styles.emptyContainer}>
-              <FontAwesome6 name="book" size={60} color={COLORS.textSecondary} />
+              <FontAwesome6
+                name="book"
+                size={60}
+                color={COLORS.textSecondary}
+              />
               <Text style={styles.emptyText}>No recommendations yet</Text>
-              <Text style={styles.emptySubtext}>Be the first to share a book!</Text>
+              <Text style={styles.emptySubtext}>
+                Be the first to share a book!
+              </Text>
             </View>
           }
           ListFooterComponent={
             hasMore && books.length > 0 ? (
-              <ActivityIndicator style={styles.footerLoader} size="small" color={COLORS.primary} />
+              <ActivityIndicator
+                style={styles.footerLoader}
+                size="small"
+                color={COLORS.primary}
+              />
             ) : null
           }
         />
