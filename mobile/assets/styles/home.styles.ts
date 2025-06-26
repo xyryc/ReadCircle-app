@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     padding: 16,
-    paddingBottom: 80, 
+    paddingBottom: 80,
   },
   header: {
     marginBottom: 20,
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 24,
-    fontFamily: "JetBrainsMono-Medium",
+    fontFamily: "Merriweather-Regular",
     letterSpacing: 0.5,
     color: COLORS.primary,
     marginBottom: 8,

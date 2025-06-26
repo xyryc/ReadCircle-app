@@ -10,6 +10,7 @@ export type AuthStore = {
   user: User | null;
   token: string | null;
   isLoading: boolean;
+  isCheckingAuth: boolean;
   register: (
     username: string,
     email: string,

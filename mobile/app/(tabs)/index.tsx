@@ -16,19 +16,7 @@ import { format } from "date-fns";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import Loader from "@/components/Loader";
 import { sleep } from "../../utils/utils";
-
-interface Book {
-  _id: string;
-  title: string;
-  caption: string;
-  image: string;
-  rating: number;
-  user: {
-    username: string;
-    profileImage: string;
-  };
-  createdAt: string;
-}
+import { Book } from "@/types/book";
 
 const Index = () => {
   const { token } = useAuthStore();
