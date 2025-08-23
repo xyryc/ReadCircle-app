@@ -83,8 +83,8 @@ npx expo start
 - **Other**: Expo Router, AsyncStorage, date-fns
 
 ## Folder Structure
-`backend/` - Express API (see `backend/src/index.js`)
-`mobile/` - Expo React Native app (see `mobile/app/_layout.tsx`)
+- `backend/` - Express API (see `backend/src/index.js`)
+- `mobile/` - Expo React Native app (see `mobile/app/_layout.tsx`)
 
 ## License
 This project is licensed under the [MIT License](./LICENSE).
