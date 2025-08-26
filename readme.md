@@ -2,8 +2,6 @@
 
 ReadCircle is a full-stack social platform for sharing and discovering book recommendations. Users can sign up, post their favorite books with reviews and images, and browse recommendations from the community.
 
-## Screenshots
-
 ## 🎥 Demo
 
 <img src="./media/demo.gif" alt="Demo Preview" width="340" height="600">
@@ -18,7 +16,6 @@ ReadCircle is a full-stack social platform for sharing and discovering book reco
 <img src="./media/IMG_3139.PNG" alt="Screenshot 1" width="300" height="600">
 <img src="./media/IMG_3140.PNG" alt="Screenshot 1" width="300" height="600">
 <img src="./media/IMG_3141.PNG" alt="Screenshot 1" width="300" height="600">
-<img src="./media/IMG_3142.PNG" alt="Screenshot 1" width="300" height="600">
 
 ## Features
 
