@@ -2,6 +2,10 @@
 
 ReadCircle is a full-stack social platform for sharing and discovering book recommendations. Users can sign up, post their favorite books with reviews and images, and browse recommendations from the community.
 
+## Download
+📱 [Download Latest APK](./media/readcircle_app_release_v1.0.apk)
+
+
 ## 🎥 Demo
 
 <img src="./media/demo.gif" alt="Demo Preview" width="340" height="600">
