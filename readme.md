@@ -8,14 +8,17 @@ ReadCircle is a full-stack social platform for sharing and discovering book reco
 
 ## 📸 Screenshots
 
-<img src="./media/IMG_3134.PNG" alt="Screenshot 1" width="300" height="600">
-<img src="./media/IMG_3136.PNG" alt="Screenshot 1" width="300" height="600">
-<img src="./media/IMG_3135.PNG" alt="Screenshot 1" width="300" height="600">
-<img src="./media/IMG_3137.PNG" alt="Screenshot 1" width="300" height="600">
-<img src="./media/IMG_3138.PNG" alt="Screenshot 1" width="300" height="600">
-<img src="./media/IMG_3139.PNG" alt="Screenshot 1" width="300" height="600">
-<img src="./media/IMG_3140.PNG" alt="Screenshot 1" width="300" height="600">
-<img src="./media/IMG_3141.PNG" alt="Screenshot 1" width="300" height="600">
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+  <img src="./media/IMG_3134.PNG" alt="Screenshot 1" width="200" />
+  <img src="./media/IMG_3136.PNG" alt="Screenshot 2" width="200" />
+  <img src="./media/IMG_3135.PNG" alt="Screenshot 3" width="200" />
+  <img src="./media/IMG_3137.PNG" alt="Screenshot 4" width="200" />
+  <img src="./media/IMG_3138.PNG" alt="Screenshot 5" width="200" />
+  <img src="./media/IMG_3139.PNG" alt="Screenshot 6" width="200" />
+  <img src="./media/IMG_3140.PNG" alt="Screenshot 7" width="200" />
+  <img src="./media/IMG_3141.PNG" alt="Screenshot 8" width="200" />
+</div>
+
 
 ## Features
 
