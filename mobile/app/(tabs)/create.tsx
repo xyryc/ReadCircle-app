@@ -141,26 +141,26 @@ const Create = () => {
     }
   };
 
-  const renderRatingPicker = () => {
-    const stars = [];
-    for (let i = 0; i <= 4; i++) {
-      stars.push(
-        <TouchableOpacity
-          key={i}
-          onPress={() => setRating(i)}
-          style={styles.starButton}
-        >
-          <Octicons
-            name={i <= rating ? "star-fill" : "star"}
-            size={24}
-            color={i <= rating ? "#f4b400" : COLORS.textSecondary}
-          />
-        </TouchableOpacity>
-      );
-    }
+const renderRatingPicker = () => {
+  const stars = [];
+  for (let i = 0; i < 5; i++) { 
+    stars.push(
+      <TouchableOpacity
+        key={i}
+        onPress={() => setRating(i + 1)}
+        style={styles.starButton}
+      >
+        <Octicons
+          name={i < rating ? "star-fill" : "star"} 
+          size={24}
+          color={i < rating ? "#f4b400" : COLORS.textSecondary}
+        />
+      </TouchableOpacity>
+    );
+  }
 
-    return <View style={styles.ratingContainer}>{stars}</View>;
-  };
+  return <View style={styles.ratingContainer}>{stars}</View>;
+};
 
   return (
     <KeyboardAvoidingView
