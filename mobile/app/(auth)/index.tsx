@@ -8,6 +8,7 @@ import {
   Platform,
   Image,
   Alert,
+  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import styles from "@/assets/styles/login.styles";
@@ -36,6 +37,7 @@ const Login = () => {
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
+      <ScrollView>
       <View style={styles.container}>
         {/* Illustration */}
         <View style={styles.topIllustration}>
@@ -127,6 +129,7 @@ const Login = () => {
           </View>
         </View>
       </View>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 };

@@ -143,7 +143,7 @@ const Create = () => {
 
   const renderRatingPicker = () => {
     const stars = [];
-    for (let i = 0; i <= 5; i++) {
+    for (let i = 0; i <= 4; i++) {
       stars.push(
         <TouchableOpacity
           key={i}
@@ -152,7 +152,7 @@ const Create = () => {
         >
           <Octicons
             name={i <= rating ? "star-fill" : "star"}
-            size={32}
+            size={24}
             color={i <= rating ? "#f4b400" : COLORS.textSecondary}
           />
         </TouchableOpacity>

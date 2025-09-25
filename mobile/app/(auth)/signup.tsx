@@ -7,6 +7,7 @@ import {
   TextInput,
   ActivityIndicator,
   Alert,
+  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import styles from "@/assets/styles/signup.styles";
@@ -37,6 +38,7 @@ const SignUp = () => {
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
+      <ScrollView>
       <View style={styles.container}>
         <View style={styles.card}>
           {/* header */}
@@ -147,6 +149,7 @@ const SignUp = () => {
           </View>
         </View>
       </View>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 };
